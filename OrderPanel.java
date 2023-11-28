@@ -23,7 +23,7 @@ public class OrderPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 // Switch to the TransactionPanel
                 CardLayout cardLayout = (CardLayout) parentPanel.getLayout();
-                cardLayout.show(parentPanel, "transactionPanel");
+                cardLayout.show(parentPanel, "menuPanel");
             }
         });
 

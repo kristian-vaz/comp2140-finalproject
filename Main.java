@@ -16,7 +16,8 @@ public class Main extends JFrame {
     private JPasswordField passwordInput;
     private JButton loginButton;
     private JButton inventoryButton;
-    private JButton transactionButton;
+    private JButton orderButton;
+    private JButton reportButton;
     private JButton logoutButton;
     
     public Main() {
@@ -93,30 +94,36 @@ public class Main extends JFrame {
             }
         });
 
-        transactionButton = new JButton("Transaction");
-        transactionButton.addActionListener(new ActionListener() {
+        reportButton = new JButton("Generate report");
+        reportButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cardLayout.show(mainPanel, "Transaction");
+                cardLayout.show(mainPanel, "Report");
+            }
+        });
+        orderButton = new JButton("Order");
+        orderButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cardLayout.show(mainPanel, "Order");
             }
         });
 
-        menuPanel.setLayout(new GridLayout(3, 1));
+        menuPanel.setLayout(new GridLayout(4, 1));
         menuPanel.add(inventoryButton);
-        menuPanel.add(transactionButton);
+        menuPanel.add(reportButton);
+        menuPanel.add(orderButton);
         menuPanel.add(logoutButton);
         
         //Menu Panel//
 
-        InventoryPanel invent = new InventoryPanel();
-        TransactionPanel trans = new TransactionPanel(mainPanel);
+        InventoryPanel invent = new InventoryPanel(mainPanel);
         OrderPanel order = new OrderPanel(mainPanel);
         ReportPanel report = new ReportPanel(mainPanel);
 
         mainPanel.add(invent, "Inventory");
-        mainPanel.add(trans, "Transaction");
-        mainPanel.add(trans, "order");
-        mainPanel.add(trans, "report");
+        mainPanel.add(order, "Order");
+        mainPanel.add(report, "Report");
         mainPanel.add(loginPanel, "loginPanel");
         mainPanel.add(menuPanel, "menuPanel");
         cardLayout.show(mainPanel, "loginPanel");

@@ -7,13 +7,17 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class InventoryPanel extends JPanel {
+    private JPanel parentPanel;
+
     private ArrayList<Item> inventoryList;
     private DefaultTableModel tableModel;
     private JTable itemTable;
 
     private static final String ITEMS_FILE = "items.dat";
 
-    public InventoryPanel() {
+    public InventoryPanel(JPanel parentPanel) {
+        this.parentPanel = parentPanel;
+
         inventoryList = loadItems();
         tableModel = new DefaultTableModel();
         tableModel.addColumn("Category");
@@ -28,10 +32,18 @@ public class InventoryPanel extends JPanel {
         updateTable();
 
         JScrollPane scrollPane = new JScrollPane(itemTable);
-        JButton addItemButton = new JButton("Add Item");
-        JButton editItemButton = new JButton("Edit Item");
-        JButton removeItemButton = new JButton("Remove Item");
 
+        JButton backButton = new JButton("Back");
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Switch to the TransactionPanel
+                CardLayout cardLayout = (CardLayout) parentPanel.getLayout();
+                cardLayout.show(parentPanel, "menuPanel");
+            }
+        });
+
+        JButton addItemButton = new JButton("Add Item");
         addItemButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -39,6 +51,7 @@ public class InventoryPanel extends JPanel {
             }
         });
 
+        JButton editItemButton = new JButton("Edit Item");
         editItemButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -46,6 +59,7 @@ public class InventoryPanel extends JPanel {
             }
         });
 
+        JButton removeItemButton = new JButton("Remove Item");
         removeItemButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -55,6 +69,7 @@ public class InventoryPanel extends JPanel {
 
         setLayout(new BorderLayout());
         JPanel buttonPanel = new JPanel();
+        buttonPanel.add(backButton);
         buttonPanel.add(addItemButton);
         buttonPanel.add(editItemButton);
         buttonPanel.add(removeItemButton);
